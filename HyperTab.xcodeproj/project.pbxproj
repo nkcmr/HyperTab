@@ -1,0 +1,963 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		53BF83D92B0910510035E5BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BF83D82B0910510035E5BA /* AppDelegate.swift */; };
+		53BF83DB2B0910510035E5BA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BF83DA2B0910510035E5BA /* SceneDelegate.swift */; };
+		53BF83DE2B0910510035E5BA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53BF83DC2B0910510035E5BA /* LaunchScreen.storyboard */; };
+		53BF83E12B0910510035E5BA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53BF83DF2B0910510035E5BA /* Main.storyboard */; };
+		53BF83EA2B0910510035E5BA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BF83E92B0910510035E5BA /* AppDelegate.swift */; };
+		53BF83ED2B0910510035E5BA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53BF83EB2B0910510035E5BA /* Main.storyboard */; };
+		53BF83F42B0910510035E5BA /* HyperTab Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 53BF83F32B0910510035E5BA /* HyperTab Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		53BF83FE2B0910510035E5BA /* HyperTab Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 53BF83FD2B0910510035E5BA /* HyperTab Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		53BF84042B0910510035E5BA /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = 53BF83BF2B0910510035E5BA /* Main.html */; };
+		53BF84052B0910510035E5BA /* Main.html in Resources */ = {isa = PBXBuildFile; fileRef = 53BF83BF2B0910510035E5BA /* Main.html */; };
+		53BF84062B0910510035E5BA /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 53BF83C12B0910510035E5BA /* Icon.png */; };
+		53BF84072B0910510035E5BA /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 53BF83C12B0910510035E5BA /* Icon.png */; };
+		53BF84082B0910510035E5BA /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = 53BF83C22B0910510035E5BA /* Style.css */; };
+		53BF84092B0910510035E5BA /* Style.css in Resources */ = {isa = PBXBuildFile; fileRef = 53BF83C22B0910510035E5BA /* Style.css */; };
+		53BF840A2B0910510035E5BA /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = 53BF83C32B0910510035E5BA /* Script.js */; };
+		53BF840B2B0910510035E5BA /* Script.js in Resources */ = {isa = PBXBuildFile; fileRef = 53BF83C32B0910510035E5BA /* Script.js */; };
+		53BF840C2B0910510035E5BA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BF83C42B0910510035E5BA /* ViewController.swift */; };
+		53BF840D2B0910510035E5BA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BF83C42B0910510035E5BA /* ViewController.swift */; };
+		53BF840E2B0910510035E5BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53BF83C52B0910510035E5BA /* Assets.xcassets */; };
+		53BF840F2B0910510035E5BA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53BF83C52B0910510035E5BA /* Assets.xcassets */; };
+		53BF84102B0910510035E5BA /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BF83C72B0910510035E5BA /* SafariWebExtensionHandler.swift */; };
+		53BF84112B0910510035E5BA /* SafariWebExtensionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BF83C72B0910510035E5BA /* SafariWebExtensionHandler.swift */; };
+		53BF84122B0910510035E5BA /* _locales in Resources */ = {isa = PBXBuildFile; fileRef = 53BF83C92B0910510035E5BA /* _locales */; };
+		53BF84132B0910510035E5BA /* _locales in Resources */ = {isa = PBXBuildFile; fileRef = 53BF83C92B0910510035E5BA /* _locales */; };
+		53BF84142B0910510035E5BA /* images in Resources */ = {isa = PBXBuildFile; fileRef = 53BF83CA2B0910510035E5BA /* images */; };
+		53BF84152B0910510035E5BA /* images in Resources */ = {isa = PBXBuildFile; fileRef = 53BF83CA2B0910510035E5BA /* images */; };
+		53BF84162B0910510035E5BA /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 53BF83CB2B0910510035E5BA /* manifest.json */; };
+		53BF84172B0910510035E5BA /* manifest.json in Resources */ = {isa = PBXBuildFile; fileRef = 53BF83CB2B0910510035E5BA /* manifest.json */; };
+		53BF84182B0910510035E5BA /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = 53BF83CC2B0910510035E5BA /* background.js */; };
+		53BF84192B0910510035E5BA /* background.js in Resources */ = {isa = PBXBuildFile; fileRef = 53BF83CC2B0910510035E5BA /* background.js */; };
+		53BF841A2B0910510035E5BA /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = 53BF83CD2B0910510035E5BA /* content.js */; };
+		53BF841B2B0910510035E5BA /* content.js in Resources */ = {isa = PBXBuildFile; fileRef = 53BF83CD2B0910510035E5BA /* content.js */; };
+		53BF841C2B0910510035E5BA /* popup.html in Resources */ = {isa = PBXBuildFile; fileRef = 53BF83CE2B0910510035E5BA /* popup.html */; };
+		53BF841D2B0910510035E5BA /* popup.html in Resources */ = {isa = PBXBuildFile; fileRef = 53BF83CE2B0910510035E5BA /* popup.html */; };
+		53BF841E2B0910510035E5BA /* popup.css in Resources */ = {isa = PBXBuildFile; fileRef = 53BF83CF2B0910510035E5BA /* popup.css */; };
+		53BF841F2B0910510035E5BA /* popup.css in Resources */ = {isa = PBXBuildFile; fileRef = 53BF83CF2B0910510035E5BA /* popup.css */; };
+		53BF84202B0910510035E5BA /* popup.js in Resources */ = {isa = PBXBuildFile; fileRef = 53BF83D02B0910510035E5BA /* popup.js */; };
+		53BF84212B0910510035E5BA /* popup.js in Resources */ = {isa = PBXBuildFile; fileRef = 53BF83D02B0910510035E5BA /* popup.js */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		53BF83F52B0910510035E5BA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 53BF83B92B0910500035E5BA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 53BF83F22B0910510035E5BA;
+			remoteInfo = "HyperTab Extension (iOS)";
+		};
+		53BF83FF2B0910510035E5BA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 53BF83B92B0910500035E5BA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 53BF83FC2B0910510035E5BA;
+			remoteInfo = "HyperTab Extension (macOS)";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		53BF84272B0910510035E5BA /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				53BF83F42B0910510035E5BA /* HyperTab Extension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		53BF842E2B0910510035E5BA /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				53BF83FE2B0910510035E5BA /* HyperTab Extension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		53BF83C02B0910510035E5BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = ../Base.lproj/Main.html; sourceTree = "<group>"; };
+		53BF83C12B0910510035E5BA /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		53BF83C22B0910510035E5BA /* Style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = Style.css; sourceTree = "<group>"; };
+		53BF83C32B0910510035E5BA /* Script.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Script.js; sourceTree = "<group>"; };
+		53BF83C42B0910510035E5BA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		53BF83C52B0910510035E5BA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		53BF83C72B0910510035E5BA /* SafariWebExtensionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariWebExtensionHandler.swift; sourceTree = "<group>"; };
+		53BF83C92B0910510035E5BA /* _locales */ = {isa = PBXFileReference; lastKnownFileType = folder; path = _locales; sourceTree = "<group>"; };
+		53BF83CA2B0910510035E5BA /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
+		53BF83CB2B0910510035E5BA /* manifest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = manifest.json; sourceTree = "<group>"; };
+		53BF83CC2B0910510035E5BA /* background.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = background.js; sourceTree = "<group>"; };
+		53BF83CD2B0910510035E5BA /* content.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = content.js; sourceTree = "<group>"; };
+		53BF83CE2B0910510035E5BA /* popup.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = popup.html; sourceTree = "<group>"; };
+		53BF83CF2B0910510035E5BA /* popup.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = popup.css; sourceTree = "<group>"; };
+		53BF83D02B0910510035E5BA /* popup.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = popup.js; sourceTree = "<group>"; };
+		53BF83D52B0910510035E5BA /* HyperTab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HyperTab.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		53BF83D82B0910510035E5BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		53BF83DA2B0910510035E5BA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		53BF83DD2B0910510035E5BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		53BF83E02B0910510035E5BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		53BF83E22B0910510035E5BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		53BF83E72B0910510035E5BA /* HyperTab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HyperTab.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		53BF83E92B0910510035E5BA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		53BF83EC2B0910510035E5BA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		53BF83EE2B0910510035E5BA /* HyperTab.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HyperTab.entitlements; sourceTree = "<group>"; };
+		53BF83F32B0910510035E5BA /* HyperTab Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "HyperTab Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		53BF83F82B0910510035E5BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		53BF83FD2B0910510035E5BA /* HyperTab Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "HyperTab Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		53BF84022B0910510035E5BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		53BF84032B0910510035E5BA /* HyperTab.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HyperTab.entitlements; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		53BF83D22B0910510035E5BA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		53BF83E42B0910510035E5BA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		53BF83F02B0910510035E5BA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		53BF83FA2B0910510035E5BA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		53BF83B82B0910500035E5BA = {
+			isa = PBXGroup;
+			children = (
+				53BF83BD2B0910510035E5BA /* Shared (App) */,
+				53BF83C62B0910510035E5BA /* Shared (Extension) */,
+				53BF83D72B0910510035E5BA /* iOS (App) */,
+				53BF83E82B0910510035E5BA /* macOS (App) */,
+				53BF83F72B0910510035E5BA /* iOS (Extension) */,
+				53BF84012B0910510035E5BA /* macOS (Extension) */,
+				53BF83D62B0910510035E5BA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		53BF83BD2B0910510035E5BA /* Shared (App) */ = {
+			isa = PBXGroup;
+			children = (
+				53BF83C42B0910510035E5BA /* ViewController.swift */,
+				53BF83C52B0910510035E5BA /* Assets.xcassets */,
+				53BF83BE2B0910510035E5BA /* Resources */,
+			);
+			path = "Shared (App)";
+			sourceTree = "<group>";
+		};
+		53BF83BE2B0910510035E5BA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				53BF83BF2B0910510035E5BA /* Main.html */,
+				53BF83C12B0910510035E5BA /* Icon.png */,
+				53BF83C22B0910510035E5BA /* Style.css */,
+				53BF83C32B0910510035E5BA /* Script.js */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		53BF83C62B0910510035E5BA /* Shared (Extension) */ = {
+			isa = PBXGroup;
+			children = (
+				53BF83C72B0910510035E5BA /* SafariWebExtensionHandler.swift */,
+				53BF83C82B0910510035E5BA /* Resources */,
+			);
+			path = "Shared (Extension)";
+			sourceTree = "<group>";
+		};
+		53BF83C82B0910510035E5BA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				53BF83C92B0910510035E5BA /* _locales */,
+				53BF83CA2B0910510035E5BA /* images */,
+				53BF83CB2B0910510035E5BA /* manifest.json */,
+				53BF83CC2B0910510035E5BA /* background.js */,
+				53BF83CD2B0910510035E5BA /* content.js */,
+				53BF83CE2B0910510035E5BA /* popup.html */,
+				53BF83CF2B0910510035E5BA /* popup.css */,
+				53BF83D02B0910510035E5BA /* popup.js */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		53BF83D62B0910510035E5BA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				53BF83D52B0910510035E5BA /* HyperTab.app */,
+				53BF83E72B0910510035E5BA /* HyperTab.app */,
+				53BF83F32B0910510035E5BA /* HyperTab Extension.appex */,
+				53BF83FD2B0910510035E5BA /* HyperTab Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		53BF83D72B0910510035E5BA /* iOS (App) */ = {
+			isa = PBXGroup;
+			children = (
+				53BF83D82B0910510035E5BA /* AppDelegate.swift */,
+				53BF83DA2B0910510035E5BA /* SceneDelegate.swift */,
+				53BF83DC2B0910510035E5BA /* LaunchScreen.storyboard */,
+				53BF83DF2B0910510035E5BA /* Main.storyboard */,
+				53BF83E22B0910510035E5BA /* Info.plist */,
+			);
+			path = "iOS (App)";
+			sourceTree = "<group>";
+		};
+		53BF83E82B0910510035E5BA /* macOS (App) */ = {
+			isa = PBXGroup;
+			children = (
+				53BF83E92B0910510035E5BA /* AppDelegate.swift */,
+				53BF83EB2B0910510035E5BA /* Main.storyboard */,
+				53BF83EE2B0910510035E5BA /* HyperTab.entitlements */,
+			);
+			path = "macOS (App)";
+			sourceTree = "<group>";
+		};
+		53BF83F72B0910510035E5BA /* iOS (Extension) */ = {
+			isa = PBXGroup;
+			children = (
+				53BF83F82B0910510035E5BA /* Info.plist */,
+			);
+			path = "iOS (Extension)";
+			sourceTree = "<group>";
+		};
+		53BF84012B0910510035E5BA /* macOS (Extension) */ = {
+			isa = PBXGroup;
+			children = (
+				53BF84022B0910510035E5BA /* Info.plist */,
+				53BF84032B0910510035E5BA /* HyperTab.entitlements */,
+			);
+			path = "macOS (Extension)";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		53BF83D42B0910510035E5BA /* HyperTab (iOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 53BF84282B0910510035E5BA /* Build configuration list for PBXNativeTarget "HyperTab (iOS)" */;
+			buildPhases = (
+				53BF83D12B0910510035E5BA /* Sources */,
+				53BF83D22B0910510035E5BA /* Frameworks */,
+				53BF83D32B0910510035E5BA /* Resources */,
+				53BF84272B0910510035E5BA /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				53BF83F62B0910510035E5BA /* PBXTargetDependency */,
+			);
+			name = "HyperTab (iOS)";
+			productName = "HyperTab (iOS)";
+			productReference = 53BF83D52B0910510035E5BA /* HyperTab.app */;
+			productType = "com.apple.product-type.application";
+		};
+		53BF83E62B0910510035E5BA /* HyperTab (macOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 53BF842F2B0910510035E5BA /* Build configuration list for PBXNativeTarget "HyperTab (macOS)" */;
+			buildPhases = (
+				53BF83E32B0910510035E5BA /* Sources */,
+				53BF83E42B0910510035E5BA /* Frameworks */,
+				53BF83E52B0910510035E5BA /* Resources */,
+				53BF842E2B0910510035E5BA /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				53BF84002B0910510035E5BA /* PBXTargetDependency */,
+			);
+			name = "HyperTab (macOS)";
+			productName = "HyperTab (macOS)";
+			productReference = 53BF83E72B0910510035E5BA /* HyperTab.app */;
+			productType = "com.apple.product-type.application";
+		};
+		53BF83F22B0910510035E5BA /* HyperTab Extension (iOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 53BF84242B0910510035E5BA /* Build configuration list for PBXNativeTarget "HyperTab Extension (iOS)" */;
+			buildPhases = (
+				53BF83EF2B0910510035E5BA /* Sources */,
+				53BF83F02B0910510035E5BA /* Frameworks */,
+				53BF83F12B0910510035E5BA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "HyperTab Extension (iOS)";
+			productName = "HyperTab Extension (iOS)";
+			productReference = 53BF83F32B0910510035E5BA /* HyperTab Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		53BF83FC2B0910510035E5BA /* HyperTab Extension (macOS) */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 53BF842B2B0910510035E5BA /* Build configuration list for PBXNativeTarget "HyperTab Extension (macOS)" */;
+			buildPhases = (
+				53BF83F92B0910510035E5BA /* Sources */,
+				53BF83FA2B0910510035E5BA /* Frameworks */,
+				53BF83FB2B0910510035E5BA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "HyperTab Extension (macOS)";
+			productName = "HyperTab Extension (macOS)";
+			productReference = 53BF83FD2B0910510035E5BA /* HyperTab Extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		53BF83B92B0910500035E5BA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					53BF83D42B0910510035E5BA = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
+					53BF83E62B0910510035E5BA = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
+					53BF83F22B0910510035E5BA = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
+					53BF83FC2B0910510035E5BA = {
+						CreatedOnToolsVersion = 15.0.1;
+					};
+				};
+			};
+			buildConfigurationList = 53BF83BC2B0910500035E5BA /* Build configuration list for PBXProject "HyperTab" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 53BF83B82B0910500035E5BA;
+			productRefGroup = 53BF83D62B0910510035E5BA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				53BF83D42B0910510035E5BA /* HyperTab (iOS) */,
+				53BF83E62B0910510035E5BA /* HyperTab (macOS) */,
+				53BF83F22B0910510035E5BA /* HyperTab Extension (iOS) */,
+				53BF83FC2B0910510035E5BA /* HyperTab Extension (macOS) */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		53BF83D32B0910510035E5BA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53BF84062B0910510035E5BA /* Icon.png in Resources */,
+				53BF83DE2B0910510035E5BA /* LaunchScreen.storyboard in Resources */,
+				53BF84042B0910510035E5BA /* Main.html in Resources */,
+				53BF840A2B0910510035E5BA /* Script.js in Resources */,
+				53BF840E2B0910510035E5BA /* Assets.xcassets in Resources */,
+				53BF83E12B0910510035E5BA /* Main.storyboard in Resources */,
+				53BF84082B0910510035E5BA /* Style.css in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		53BF83E52B0910510035E5BA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53BF84072B0910510035E5BA /* Icon.png in Resources */,
+				53BF84092B0910510035E5BA /* Style.css in Resources */,
+				53BF83ED2B0910510035E5BA /* Main.storyboard in Resources */,
+				53BF840B2B0910510035E5BA /* Script.js in Resources */,
+				53BF840F2B0910510035E5BA /* Assets.xcassets in Resources */,
+				53BF84052B0910510035E5BA /* Main.html in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		53BF83F12B0910510035E5BA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53BF84182B0910510035E5BA /* background.js in Resources */,
+				53BF841E2B0910510035E5BA /* popup.css in Resources */,
+				53BF841C2B0910510035E5BA /* popup.html in Resources */,
+				53BF84142B0910510035E5BA /* images in Resources */,
+				53BF84162B0910510035E5BA /* manifest.json in Resources */,
+				53BF84122B0910510035E5BA /* _locales in Resources */,
+				53BF841A2B0910510035E5BA /* content.js in Resources */,
+				53BF84202B0910510035E5BA /* popup.js in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		53BF83FB2B0910510035E5BA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53BF84192B0910510035E5BA /* background.js in Resources */,
+				53BF841F2B0910510035E5BA /* popup.css in Resources */,
+				53BF841D2B0910510035E5BA /* popup.html in Resources */,
+				53BF84152B0910510035E5BA /* images in Resources */,
+				53BF84172B0910510035E5BA /* manifest.json in Resources */,
+				53BF84132B0910510035E5BA /* _locales in Resources */,
+				53BF841B2B0910510035E5BA /* content.js in Resources */,
+				53BF84212B0910510035E5BA /* popup.js in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		53BF83D12B0910510035E5BA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53BF840C2B0910510035E5BA /* ViewController.swift in Sources */,
+				53BF83D92B0910510035E5BA /* AppDelegate.swift in Sources */,
+				53BF83DB2B0910510035E5BA /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		53BF83E32B0910510035E5BA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53BF840D2B0910510035E5BA /* ViewController.swift in Sources */,
+				53BF83EA2B0910510035E5BA /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		53BF83EF2B0910510035E5BA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53BF84102B0910510035E5BA /* SafariWebExtensionHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		53BF83F92B0910510035E5BA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				53BF84112B0910510035E5BA /* SafariWebExtensionHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		53BF83F62B0910510035E5BA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 53BF83F22B0910510035E5BA /* HyperTab Extension (iOS) */;
+			targetProxy = 53BF83F52B0910510035E5BA /* PBXContainerItemProxy */;
+		};
+		53BF84002B0910510035E5BA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 53BF83FC2B0910510035E5BA /* HyperTab Extension (macOS) */;
+			targetProxy = 53BF83FF2B0910510035E5BA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		53BF83BF2B0910510035E5BA /* Main.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53BF83C02B0910510035E5BA /* Base */,
+			);
+			name = Main.html;
+			sourceTree = "<group>";
+		};
+		53BF83DC2B0910510035E5BA /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53BF83DD2B0910510035E5BA /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		53BF83DF2B0910510035E5BA /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53BF83E02B0910510035E5BA /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		53BF83EB2B0910510035E5BA /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				53BF83EC2B0910510035E5BA /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		53BF84222B0910510035E5BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		53BF84232B0910510035E5BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		53BF84252B0910510035E5BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "HyperTab Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = net.heliosia.HyperTab.Extension;
+				PRODUCT_NAME = "HyperTab Extension";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		53BF84262B0910510035E5BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "HyperTab Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = net.heliosia.HyperTab.Extension;
+				PRODUCT_NAME = "HyperTab Extension";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		53BF84292B0910510035E5BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = HyperTab;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = net.heliosia.HyperTab;
+				PRODUCT_NAME = HyperTab;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		53BF842A2B0910510035E5BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "iOS (App)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = HyperTab;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = net.heliosia.HyperTab;
+				PRODUCT_NAME = HyperTab;
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		53BF842C2B0910510035E5BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "macOS (Extension)/HyperTab.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "HyperTab Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = net.heliosia.HyperTab.Extension;
+				PRODUCT_NAME = "HyperTab Extension";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		53BF842D2B0910510035E5BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "macOS (Extension)/HyperTab.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "macOS (Extension)/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "HyperTab Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = net.heliosia.HyperTab.Extension;
+				PRODUCT_NAME = "HyperTab Extension";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		53BF84302B0910510035E5BA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "macOS (App)/HyperTab.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = HyperTab;
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = net.heliosia.HyperTab;
+				PRODUCT_NAME = HyperTab;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		53BF84312B0910510035E5BA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "macOS (App)/HyperTab.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = HyperTab;
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = (
+					"-framework",
+					SafariServices,
+					"-framework",
+					WebKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = net.heliosia.HyperTab;
+				PRODUCT_NAME = HyperTab;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		53BF83BC2B0910500035E5BA /* Build configuration list for PBXProject "HyperTab" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				53BF84222B0910510035E5BA /* Debug */,
+				53BF84232B0910510035E5BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		53BF84242B0910510035E5BA /* Build configuration list for PBXNativeTarget "HyperTab Extension (iOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				53BF84252B0910510035E5BA /* Debug */,
+				53BF84262B0910510035E5BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		53BF84282B0910510035E5BA /* Build configuration list for PBXNativeTarget "HyperTab (iOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				53BF84292B0910510035E5BA /* Debug */,
+				53BF842A2B0910510035E5BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		53BF842B2B0910510035E5BA /* Build configuration list for PBXNativeTarget "HyperTab Extension (macOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				53BF842C2B0910510035E5BA /* Debug */,
+				53BF842D2B0910510035E5BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		53BF842F2B0910510035E5BA /* Build configuration list for PBXNativeTarget "HyperTab (macOS)" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				53BF84302B0910510035E5BA /* Debug */,
+				53BF84312B0910510035E5BA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 53BF83B92B0910500035E5BA /* Project object */;
+}
