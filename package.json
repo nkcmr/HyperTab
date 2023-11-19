@@ -1,0 +1,27 @@
+{
+  "scripts": {
+    "clean": "rm -rf dist",
+    "dev": "npm run clean && run-p dev:**",
+    "dev:bg": "esbuild --bundle ./src/background/main.ts --outdir=dist/bg --sourcemap --watch",
+    "dev:popup": "esbuild --bundle ./src/popup/main.tsx --outdir=dist/popup --sourcemap --watch",
+    "build": "npm run clean && run-p build:**",
+    "build:bg": "esbuild --bundle ./src/background/main.ts --outdir=dist/bg --minify",
+    "build:popup": "esbuild --bundle ./src/popup/main.tsx --outdir=dist/popup --minify"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.251",
+    "esbuild": "^0.19.5",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@types/lodash.uniq": "^4.5.9",
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
+    "fuse.js": "^7.0.0",
+    "lodash.uniq": "^4.5.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hotkeys-hook": "^4.4.1"
+  }
+}
