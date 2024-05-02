@@ -33,7 +33,7 @@ function useBackgroundPage(): BackgroundPage {
     resolve: (value: T | PromiseLike<T>) => void;
     reject: (reason?: any) => void;
   };
-  const waiter = new Map<number, PromiseFinishers<unknown>>();
+  const waiter = useRef(new Map<number, PromiseFinishers<unknown>>());
   useEffect(() => {
     const msgListener: Parameters<
       typeof port.current.onMessage.addListener
@@ -41,11 +41,11 @@ function useBackgroundPage(): BackgroundPage {
       if (!("id" in message) || typeof message.id !== "number") {
         return;
       }
-      const promfinishers = waiter.get(message.id);
+      const promfinishers = waiter.current.get(message.id);
       if (!promfinishers) {
         return;
       }
-      waiter.delete(message.id);
+      waiter.current.delete(message.id);
       if (message.error) {
         promfinishers.reject(message.error);
       } else {
@@ -64,14 +64,12 @@ function useBackgroundPage(): BackgroundPage {
     listTabs() {
       return new Promise((resolve, reject) => {
         const id = ++msgId.current;
-        waiter.set(id, {
+        waiter.current.set(id, {
           reject,
           resolve(value) {
-            console.timeEnd(`bgpage:rpc:listTabs:${id}`);
             resolve(value as chrome.tabs.Tab[]);
           },
         });
-        console.time(`bgpage:rpc:listTabs:${id}`);
         port.current.postMessage({ rpc: "listTabs", id });
       });
     },
@@ -86,10 +84,13 @@ const focusTab = (tabId: number, windowId: number): void => {
 
 const HighlightMatches: FunctionComponent<{
   text: string;
-  match?: FuseResultMatch;
+  match?: Omit<FuseResultMatch, "key">;
 }> = ({ text, match }) => {
   if (!match) {
     return <>{text}</>;
+  }
+  if (text.toLowerCase().includes("spec.matrix")) {
+    console.log({ text, match });
   }
   const parts: JSX.Element[] = [];
   const indicies = structuredClone(match.indices) as RangeTuple[];
@@ -158,7 +159,29 @@ function faviconURL(t: chrome.tabs.Tab, size: number): string | undefined {
   return url.toString();
 }
 
+const prefersDarkMode = (): boolean => {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches;
+};
+
+const useDarkMode = (): boolean => {
+  const [dm, setdm] = useState(() => {
+    return prefersDarkMode();
+  });
+  useEffect(() => {
+    const mql = window.matchMedia("(prefers-color-scheme: dark)");
+    const onChange = (ev: MediaQueryListEvent) => {
+      setdm(ev.matches);
+    };
+    mql.addEventListener("change", onChange);
+    return () => {
+      mql.removeEventListener("change", onChange);
+    };
+  }, []);
+  return dm;
+};
+
 const Popup: FunctionComponent = () => {
+  const darkMode = useDarkMode();
   const [tabSelector, setTabSelector] = useState(0);
   const [tabs, setTabs] = useState<chrome.tabs.Tab[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -179,7 +202,6 @@ const Popup: FunctionComponent = () => {
     if (tabs.length === 0) {
       return;
     }
-    console.log({ tabs });
   }, [tabs]);
 
   useEffect(() => {
@@ -246,7 +268,6 @@ const Popup: FunctionComponent = () => {
 
   const bgpage = useBackgroundPage();
   useEffect(() => {
-    console.time("queryTabs");
     bgpage
       .listTabs()
       .then((returnedTabs) => {
@@ -255,9 +276,7 @@ const Popup: FunctionComponent = () => {
         }
         setTabs(returnedTabs);
       })
-      .finally(() => {
-        console.timeEnd("queryTabs");
-      });
+      .finally(() => {});
   }, []);
 
   const selectedTabEle = useRef<HTMLDivElement>(null);
@@ -273,10 +292,29 @@ const Popup: FunctionComponent = () => {
 
   return (
     <div>
-      <div style={{ padding: "1em" }}>
+      <div
+        style={{ padding: "1em", display: "flex" }}
+        className="ht-search-wrapper"
+      >
+        <div style={{ marginRight: "1em" }}>
+          <svg
+            style={{ scale: "0.85" }}
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill={darkMode ? "#e9e9e9" : "#636363"}
+              d="M23.809 21.646l-6.205-6.205c1.167-1.605 1.857-3.579 1.857-5.711 0-5.365-4.365-9.73-9.731-9.73-5.365 0-9.73 4.365-9.73 9.73 0 5.366 4.365 9.73 9.73 9.73 2.034 0 3.923-.627 5.487-1.698l6.238 6.238 2.354-2.354zm-20.955-11.916c0-3.792 3.085-6.877 6.877-6.877s6.877 3.085 6.877 6.877-3.085 6.877-6.877 6.877c-3.793 0-6.877-3.085-6.877-6.877z"
+            />
+          </svg>
+        </div>
         <input
+          className="ht-search-input"
           type="text"
           autoFocus
+          placeholder="Search Tabs"
           value={searchQuery}
           style={{
             width: "100%",
@@ -301,6 +339,9 @@ const Popup: FunctionComponent = () => {
         />
       </div>
       <hr style={{ opacity: "0.3", marginTop: "0px" }} />
+      <div style={{ padding: "1em", fontWeight: "bold" }}>
+        Open Tabs ({tabs.length})
+      </div>
       <div
         style={{
           maxHeight: "500px",
@@ -332,7 +373,13 @@ const Popup: FunctionComponent = () => {
               ref={i === tabSelector ? selectedTabEle : undefined}
               style={{
                 padding: "10px",
-                backgroundColor: i === selectedTab ? "#e9e9e9" : undefined,
+                cursor: "pointer",
+                backgroundColor:
+                  i === selectedTab
+                    ? darkMode
+                      ? "#535353"
+                      : "#e9e9e9"
+                    : undefined,
 
                 // favicon support
                 ...(enableFavicons
@@ -344,19 +391,24 @@ const Popup: FunctionComponent = () => {
               }}
             >
               {favicURL && (
-                <div className="ht-tab-favicon" style={{ marginRight: "1em" }}>
+                <div
+                  className="ht-tab-favicon"
+                  style={{ marginRight: "1em", padding: ".5em" }}
+                >
                   <img width={16} height={16} src={favicURL} />
                 </div>
               )}
-              <div>
+              <div className="ht-tab-right" style={{ width: "93%" }}>
                 <div
                   className="ht-tab-title"
                   style={{
+                    color: darkMode ? "#e9e9e9" : "#2b2b2b",
                     whiteSpace: "nowrap",
                     overflow: "hidden",
                     textOverflow: "ellipsis",
                     fontSize: "1.1em",
                     marginBottom: "6px",
+                    width: "98%",
                   }}
                 >
                   {

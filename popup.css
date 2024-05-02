@@ -140,6 +140,33 @@ body {
     background-color: white;
 }
 
+.ht-tab:hover {
+    background-color: #efefef;
+}
+
+.ht-tab-location {
+    color: #e9e9e9;
+}
+
 @media (prefers-color-scheme: dark) {
-    /* Dark Mode styles go here. */
+    html {
+        background-color: black;
+    }
+
+    body {
+        background-color: #2b2b2b;
+        color: #f2f2f2;
+    }
+
+    .ht-search-wrapper .ht-search-input {
+        background-color: #2b2b2b;
+    }
+
+    .ht-tab-location {
+        color: #e9e9e9;
+    }
+
+    .ht-tab:hover {
+        background-color: #4e4e4e;
+    }
 }
