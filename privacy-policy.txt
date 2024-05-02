@@ -1,0 +1,33 @@
+Privacy Policy for HyperTab
+
+This Privacy Policy explains how we handle your information when you use this 
+browser extension, HyperTab (the "Extension").
+
+Information We Collect
+
+We do not collect any personal information or user data when you use the 
+Extension. All data and information processed by the Extension remain securely 
+within your own browser and are not transmitted to our servers or any third 
+parties.
+
+Cookies
+
+The Extension does not use cookies or similar tracking technologies.
+
+Third-Party Services
+
+The Extension does not integrate with any third-party services that would 
+require sharing user data.
+
+Security
+
+We take the security of your information seriously. Since no user data is 
+collected or transmitted by the Extension, there are no risks associated with 
+data breaches or unauthorized access to user data through the Extension.
+
+Changes to This Privacy Policy
+
+We reserve the right to update or change our Privacy Policy at any time. Any 
+changes will be posted on this page with a revised effective date. Your 
+continued use of the Extension after any such changes constitutes your 
+acceptance of the new Privacy Policy.

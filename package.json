@@ -5,16 +5,23 @@
     "dev:bg": "esbuild --bundle ./src/background/main.ts --outdir=dist/bg --sourcemap --watch",
     "dev:popup": "esbuild --bundle ./src/popup/main.tsx --outdir=dist/popup --sourcemap --watch",
     "build": "npm run clean && run-p build:**",
-    "build:bg": "esbuild --bundle ./src/background/main.ts --outdir=dist/bg --minify",
-    "build:popup": "esbuild --bundle ./src/popup/main.tsx --outdir=dist/popup --minify"
+    "build:bg": "env NODE_ENV=production esbuild --bundle ./src/background/main.ts --outdir=dist/bg --minify",
+    "build:popup": "env NODE_ENV=production esbuild --bundle ./src/popup/main.tsx --outdir=dist/popup --minify",
+    "release": "npm run build && ./package.sh"
   },
-  "devDependencies": {
+  "releaseArtifacts": [
+    "popup.css",
+    "popup.html",
+    "manifest.json",
+    "images",
+    "dist",
+    "_locales"
+  ],
+  "dependencies": {
     "@types/chrome": "^0.0.251",
     "esbuild": "^0.19.5",
     "npm-run-all": "^4.1.5",
-    "typescript": "^5.2.2"
-  },
-  "dependencies": {
+    "typescript": "^5.2.2",
     "@types/lodash.uniq": "^4.5.9",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
