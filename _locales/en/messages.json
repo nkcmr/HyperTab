@@ -1,10 +1,24 @@
 {
-    "extension_name": {
-        "message": "HyperTab",
-        "description": "The display name for the extension."
-    },
-    "extension_description": {
-        "message": "Quick Tab Search and Switch for Safari",
-        "description": "Description of what the extension does."
+  "extension_name": {
+    "message": "HyperTab",
+    "description": "The display name for the extension."
+  },
+  "extension_description": {
+    "message": "Quick Tab Search and Switch",
+    "description": "Description of what the extension does."
+  },
+  "ui_open_tabs": {
+    "message": "Open Tabs ($COUNT$)",
+    "description": "Text denoting the section in the UI of open tabs",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "82"
+      }
     }
+  },
+  "ui_search_tabs": {
+    "message": "Search Tabs",
+    "description": "Placeholder text in the tab search box"
+  }
 }
