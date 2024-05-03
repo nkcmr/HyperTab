@@ -1,0 +1,24 @@
+{
+  "extension_name": {
+    "message": "HyperTab",
+    "description": "The display name for the extension."
+  },
+  "extension_description": {
+    "message": "Schnelle Suche und Wechsel von Registerkarten",
+    "description": "Description of what the extension does."
+  },
+  "ui_open_tabs": {
+    "message": "Öffnen Sie Registerkarten ($COUNT$)",
+    "description": "Text denoting the section in the UI of open tabs",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "82"
+      }
+    }
+  },
+  "ui_search_tabs": {
+    "message": "Suchregisterkarten",
+    "description": "Placeholder text in the tab search box"
+  }
+}

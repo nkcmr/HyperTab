@@ -11,6 +11,13 @@ import ReactDOM from "react-dom/client";
 import { useHotkeys } from "react-hotkeys-hook";
 import "./scrollIntoViewIfNeededPolyfill";
 
+function t(
+  messageName: string,
+  substitutions?: string | string[] | undefined
+): string {
+  return browser.i18n.getMessage(messageName, substitutions);
+}
+
 function hostname(url: string): string {
   try {
     const u = new URL(url);
@@ -314,7 +321,7 @@ const Popup: FunctionComponent = () => {
           className="ht-search-input"
           type="text"
           autoFocus
-          placeholder="Search Tabs"
+          placeholder={t("ui_search_tabs")}
           value={searchQuery}
           style={{
             width: "100%",
@@ -340,7 +347,7 @@ const Popup: FunctionComponent = () => {
       </div>
       <hr style={{ opacity: "0.3", marginTop: "0px" }} />
       <div style={{ padding: "1em", fontWeight: "bold" }}>
-        Open Tabs ({tabs.length})
+        {t("ui_open_tabs", `${tabs.length}`)}
       </div>
       <div
         style={{
