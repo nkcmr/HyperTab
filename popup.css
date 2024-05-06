@@ -132,20 +132,25 @@ table {
     color-scheme: light dark;
 }
 
+html {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    -webkit-box-sizing: inherit;
+    -moz-box-sizing: inherit;
+    box-sizing: inherit;
+}
+
 body {
     width: 500px;
     color: black;
     font-family: system-ui;
     font-size: 12px;
-    background-color: white;
-}
-
-.ht-tab:hover {
-    background-color: #efefef;
-}
-
-.ht-tab-location {
-    color: #e9e9e9;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -156,17 +161,5 @@ body {
     body {
         background-color: #2b2b2b;
         color: #f2f2f2;
-    }
-
-    .ht-search-wrapper .ht-search-input {
-        background-color: #2b2b2b;
-    }
-
-    .ht-tab-location {
-        color: #e9e9e9;
-    }
-
-    .ht-tab:hover {
-        background-color: #4e4e4e;
     }
 }

@@ -9,6 +9,7 @@ import React, {
 } from "react";
 import ReactDOM from "react-dom/client";
 import { useHotkeys } from "react-hotkeys-hook";
+import { styled } from "styled-components";
 import "./scrollIntoViewIfNeededPolyfill";
 
 function t(
@@ -31,6 +32,7 @@ const browser = chrome;
 
 interface BackgroundPage {
   listTabs(): Promise<chrome.tabs.Tab[]>;
+  closeTab(tabID: number): Promise<chrome.tabs.Tab[]>;
 }
 
 function useBackgroundPage(): BackgroundPage {
@@ -78,6 +80,18 @@ function useBackgroundPage(): BackgroundPage {
           },
         });
         port.current.postMessage({ rpc: "listTabs", id });
+      });
+    },
+    closeTab(tabID) {
+      return new Promise((resolve, reject) => {
+        const id = ++msgId.current;
+        waiter.current.set(id, {
+          reject,
+          resolve(value) {
+            resolve(value as chrome.tabs.Tab[]);
+          },
+        });
+        port.current.postMessage({ rpc: "closeTab", id, args: { tabID } });
       });
     },
   };
@@ -133,37 +147,41 @@ const HighlightMatches: FunctionComponent<{
   );
 };
 
-// <big_sigh> ...
-function faviconsWork(tabURL: string, size: number): Promise<boolean> {
-  return new Promise((resolve) => {
-    const hiddenDiv = document.createElement("div", {});
-    hiddenDiv.setAttribute("style", "display:none;");
-    const testImg = document.createElement("img");
-    testImg.src = faviconURL({ url: tabURL } as chrome.tabs.Tab, 32)!;
-    testImg.onerror = () => {
-      document.body.removeChild(hiddenDiv);
-      resolve(false);
-    };
-    testImg.onload = () => {
-      document.body.removeChild(hiddenDiv);
-      resolve(true);
-    };
-    hiddenDiv.appendChild(testImg);
-    document.body.appendChild(hiddenDiv);
-  });
-}
+// // <big_sigh> ...
+// function faviconsWork(tabURL: string, size: number): Promise<boolean> {
+//   return new Promise((resolve) => {
+//     const hiddenDiv = document.createElement("div", {});
+//     hiddenDiv.setAttribute("style", "display:none;");
+//     const testImg = document.createElement("img");
+//     testImg.src = faviconURL({ url: tabURL } as chrome.tabs.Tab, 32)!;
+//     testImg.onerror = () => {
+//       document.body.removeChild(hiddenDiv);
+//       resolve(false);
+//     };
+//     testImg.onload = () => {
+//       document.body.removeChild(hiddenDiv);
+//       resolve(true);
+//     };
+//     hiddenDiv.appendChild(testImg);
+//     document.body.appendChild(hiddenDiv);
+//   });
+// }
 
 function faviconURL(t: chrome.tabs.Tab, size: number): string | undefined {
-  if (t.favIconUrl) {
-    return t.favIconUrl;
-  }
-  if (!t.url) {
-    return;
-  }
-  const url = new URL(browser.runtime.getURL("/_favicon/"));
-  url.searchParams.set("pageUrl", t.url);
-  url.searchParams.set("size", `${size}`);
-  return url.toString();
+  return (
+    t.favIconUrl ??
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+  );
+  // if (t.favIconUrl) {
+  //   return t.favIconUrl;
+  // }
+  // if (!t.url) {
+  //   return;
+  // }
+  // const url = new URL(browser.runtime.getURL("/_favicon/"));
+  // url.searchParams.set("pageUrl", t.url);
+  // url.searchParams.set("size", `${size}`);
+  // return url.toString();
 }
 
 const prefersDarkMode = (): boolean => {
@@ -187,23 +205,116 @@ const useDarkMode = (): boolean => {
   return dm;
 };
 
+const POPUP_WIDTH = 500;
+
+const TAB_ITEM_WIDTH = POPUP_WIDTH;
+const TAB_ITEM_PADDING_PX = 15;
+const TAB_ITEM_FAVICON_SIZE = 30;
+const TAB_ITEM_FLEX_GAP = 15;
+const TAB_ITEM_MAIN_WIDTH =
+  TAB_ITEM_WIDTH -
+  TAB_ITEM_PADDING_PX * 2 -
+  TAB_ITEM_FAVICON_SIZE -
+  TAB_ITEM_FLEX_GAP;
+
+const SEARCH_CONTAINER_WIDTH = POPUP_WIDTH;
+const SEARCH_ICON_SIZE = 24;
+const SEARCH_ICON_CONTAINER_SIZE = 30;
+const SEARCH_ICON_PADDING = (SEARCH_ICON_CONTAINER_SIZE - SEARCH_ICON_SIZE) / 2;
+const SEARCH_CONTAINER_FLEX_GAP = TAB_ITEM_FLEX_GAP;
+const SEARCH_CONTAINER_PADDING = TAB_ITEM_PADDING_PX;
+const SEARCH_INPUT_WIDTH =
+  SEARCH_CONTAINER_WIDTH -
+  SEARCH_CONTAINER_PADDING * 2 -
+  SEARCH_ICON_CONTAINER_SIZE -
+  SEARCH_CONTAINER_FLEX_GAP;
+
+const TabList = styled.div`
+  max-height: 500px;
+  overflow: scroll;
+`;
+const TabListEmpty = styled.div`
+  padding: 1.5em;
+  font-size: 1.1em;
+  display: flex;
+  justify-content: center;
+`;
+const TabItem = styled.div<{ $selected: boolean; $dark: boolean }>`
+  width: ${TAB_ITEM_WIDTH}px;
+  padding: ${TAB_ITEM_PADDING_PX}px;
+  cursor: pointer;
+  background-color: ${(props) =>
+    props.$selected ? (props.$dark ? "#535353" : "#e9e9e9") : "inherit"};
+  display: flex;
+  gap: ${TAB_ITEM_FLEX_GAP}px;
+  align-items: center;
+  &:hover {
+    background-color: #efefef;
+  }
+`;
+const TabItemFavicon = styled.div`
+  background-color: #d9d9d9;
+  border-radius: 5px;
+  padding: 0.5em;
+  width: ${TAB_ITEM_FAVICON_SIZE}px;
+  height: ${TAB_ITEM_FAVICON_SIZE}px;
+  padding: 7px;
+  flex-shrink: 0;
+`;
+const TabItemMain = styled.div`
+  width: ${TAB_ITEM_MAIN_WIDTH}px;
+`;
+const TabItemMainTitle = styled.div<{ $dark: boolean }>`
+  color: ${(props) => (props.$dark ? "#e9e9e9" : "#2b2b2b")};
+  font-size: 1.1em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+const TabItemMainHostname = styled.div`
+  color: #6e6e6e;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+const SearchContainer = styled.div`
+  display: flex;
+  width: ${SEARCH_CONTAINER_WIDTH}px;
+  gap: ${TAB_ITEM_FLEX_GAP}px;
+  padding: ${TAB_ITEM_PADDING_PX}px;
+  align-items: center;
+`;
+
+const SearchIconLeftContainer = styled.div`
+  padding: ${SEARCH_ICON_PADDING}px;
+`;
+
+const SearchInputRightContainer = styled.div``;
+const SearchInput = styled.input`
+  width: ${SEARCH_INPUT_WIDTH}px;
+  outline: none;
+  border: none;
+  font-size: 1.2em;
+`;
+
 const Popup: FunctionComponent = () => {
   const darkMode = useDarkMode();
   const [tabSelector, setTabSelector] = useState(0);
   const [tabs, setTabs] = useState<chrome.tabs.Tab[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const FAVICON_NOT_SUPPORTED = 0;
-  const FAVICON_SUPPORTED_VIA_EXT_URL = 1;
-  const FAVICON_SUPPORTED_VIA_TAB_DATA = 2;
-  const [enableFavicons, setEnabledFavicons] = useState(FAVICON_NOT_SUPPORTED);
-  useEffect(() => {
-    faviconsWork("https://www.google.com", 32).then((ok) => {
-      if (enableFavicons === 0) {
-        setEnabledFavicons(FAVICON_SUPPORTED_VIA_EXT_URL);
-      }
-    });
-  }, []);
+  // const FAVICON_NOT_SUPPORTED = 0;
+  // const FAVICON_SUPPORTED_VIA_EXT_URL = 1;
+  // const FAVICON_SUPPORTED_VIA_TAB_DATA = 2;
+  // const [enableFavicons, setEnabledFavicons] = useState(FAVICON_NOT_SUPPORTED);
+  // useEffect(() => {
+  //   faviconsWork("https://www.google.com", 32).then((ok) => {
+  //     if (enableFavicons === 0) {
+  //       setEnabledFavicons(FAVICON_SUPPORTED_VIA_EXT_URL);
+  //     }
+  //   });
+  // }, []);
 
   useEffect(() => {
     if (tabs.length === 0) {
@@ -278,9 +389,9 @@ const Popup: FunctionComponent = () => {
     bgpage
       .listTabs()
       .then((returnedTabs) => {
-        if (returnedTabs.find((t) => !!t.favIconUrl)) {
-          setEnabledFavicons(FAVICON_SUPPORTED_VIA_TAB_DATA);
-        }
+        // if (returnedTabs.find((t) => !!t.favIconUrl)) {
+        //   setEnabledFavicons(FAVICON_SUPPORTED_VIA_TAB_DATA);
+        // }
         setTabs(returnedTabs);
       })
       .finally(() => {});
@@ -297,18 +408,16 @@ const Popup: FunctionComponent = () => {
     (selectedTabEle as any).current.scrollIntoViewIfNeeded(false);
   }, [selectedTabEle.current]);
 
+  const [tabHover, setTabHover] = useState<number | null>(null);
+
   return (
     <div>
-      <div
-        style={{ padding: "1em", display: "flex" }}
-        className="ht-search-wrapper"
-      >
-        <div style={{ marginRight: "1em" }}>
+      <SearchContainer>
+        <SearchIconLeftContainer>
           <svg
-            style={{ scale: "0.85" }}
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            width={SEARCH_ICON_SIZE}
+            height={SEARCH_ICON_SIZE}
             viewBox="0 0 24 24"
           >
             <path
@@ -316,128 +425,100 @@ const Popup: FunctionComponent = () => {
               d="M23.809 21.646l-6.205-6.205c1.167-1.605 1.857-3.579 1.857-5.711 0-5.365-4.365-9.73-9.731-9.73-5.365 0-9.73 4.365-9.73 9.73 0 5.366 4.365 9.73 9.73 9.73 2.034 0 3.923-.627 5.487-1.698l6.238 6.238 2.354-2.354zm-20.955-11.916c0-3.792 3.085-6.877 6.877-6.877s6.877 3.085 6.877 6.877-3.085 6.877-6.877 6.877c-3.793 0-6.877-3.085-6.877-6.877z"
             />
           </svg>
-        </div>
-        <input
-          className="ht-search-input"
-          type="text"
-          autoFocus
-          placeholder={t("ui_search_tabs")}
-          value={searchQuery}
-          style={{
-            width: "100%",
-            outline: "none",
-            border: "none",
-            fontSize: "1.1em",
-          }}
-          onKeyDown={(e) => {
-            if (e.key === "ArrowDown") {
-              selectNext();
-            } else if (e.key === "ArrowUp") {
-              selectPrev();
-            } else if (e.key === "Enter") {
-              goToTab();
-            }
-          }}
-          spellCheck="false"
-          autoCorrect="false"
-          onChange={(e) => {
-            setSearchQuery(e.target.value);
-          }}
-        />
-      </div>
+        </SearchIconLeftContainer>
+        <SearchInputRightContainer>
+          <SearchInput
+            type="text"
+            autoFocus
+            placeholder={t("ui_search_tabs")}
+            value={searchQuery}
+            onKeyDown={(e) => {
+              if (e.key === "ArrowDown") {
+                selectNext();
+              } else if (e.key === "ArrowUp") {
+                selectPrev();
+              } else if (e.key === "Enter") {
+                goToTab();
+              }
+            }}
+            spellCheck="false"
+            autoCorrect="false"
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+            }}
+          />
+        </SearchInputRightContainer>
+      </SearchContainer>
       <hr style={{ opacity: "0.3", marginTop: "0px" }} />
       <div style={{ padding: "1em", fontWeight: "bold" }}>
         {t("ui_open_tabs", `${tabs.length}`)}
       </div>
-      <div
-        style={{
-          maxHeight: "500px",
-          overflow: "scroll",
-          // minHeight: "300px"
-        }}
-      >
+      <TabList>
         {searchResults.length === 0 ? (
-          <div
-            style={{
-              padding: "1.5em",
-              fontSize: "1.1em",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            No Results Found
-          </div>
+          <TabListEmpty>No Results Found</TabListEmpty>
         ) : null}
         {searchResults.map((t, i) => {
-          const favicURL = enableFavicons !== 0 ? faviconURL(t.item, 32) : null;
+          const favicURL = faviconURL(t.item, 32);
+          const showCloseAction = tabHover === t.item.id! && !t.item.pinned;
           return (
-            <div
+            <TabItem
               key={t.item.id}
-              className="ht-tab"
+              $dark={darkMode}
+              $selected={i === selectedTab}
               onClick={() => {
                 focusTab(t.item.id!, t.item.windowId);
               }}
               ref={i === tabSelector ? selectedTabEle : undefined}
-              style={{
-                padding: "10px",
-                cursor: "pointer",
-                backgroundColor:
-                  i === selectedTab
-                    ? darkMode
-                      ? "#535353"
-                      : "#e9e9e9"
-                    : undefined,
-
-                // favicon support
-                ...(enableFavicons
-                  ? {
-                      display: "flex",
-                      alignItems: "center",
-                    }
-                  : {}),
-              }}
             >
-              {favicURL && (
-                <div
-                  className="ht-tab-favicon"
-                  style={{ marginRight: "1em", padding: ".5em" }}
-                >
+              <TabItemFavicon
+                onMouseEnter={() => {
+                  setTabHover(t.item.id!);
+                }}
+                onMouseLeave={() => {
+                  setTabHover(null);
+                }}
+              >
+                {showCloseAction ? (
+                  <div
+                    title="Close Tab"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      bgpage.closeTab(t.item.id!).then((newtabs) => {
+                        if (i < selectedTab) {
+                          setTabSelector((n) => n - 1);
+                        }
+                        setTabs(newtabs);
+                      });
+                    }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width={16}
+                      height={16}
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.151 17.943l-4.143-4.102-4.117 4.159-1.833-1.833 4.104-4.157-4.162-4.119 1.833-1.833 4.155 4.102 4.106-4.16 1.849 1.849-4.1 4.141 4.157 4.104-1.849 1.849z" />
+                    </svg>
+                  </div>
+                ) : (
                   <img width={16} height={16} src={favicURL} />
-                </div>
-              )}
-              <div className="ht-tab-right" style={{ width: "93%" }}>
-                <div
-                  className="ht-tab-title"
-                  style={{
-                    color: darkMode ? "#e9e9e9" : "#2b2b2b",
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    fontSize: "1.1em",
-                    marginBottom: "6px",
-                    width: "98%",
-                  }}
-                >
-                  {
-                    <HighlightMatches
-                      text={t.item.title ?? ""}
-                      match={t.matches?.find((m) => m.key === "title")}
-                    />
-                  }
-                </div>
-                <div
-                  className="ht-tab-location"
-                  style={{
-                    color: "#6e6e6e",
-                  }}
-                >
+                )}
+              </TabItemFavicon>
+              <TabItemMain>
+                <TabItemMainTitle $dark={darkMode}>
+                  <HighlightMatches
+                    text={t.item.title ?? ""}
+                    match={t.matches?.find((m) => m.key === "title")}
+                  />
+                </TabItemMainTitle>
+                <TabItemMainHostname>
                   {t.item.url ? hostname(t.item.url) : ""}
-                </div>
-              </div>
-            </div>
+                </TabItemMainHostname>
+              </TabItemMain>
+            </TabItem>
           );
         })}
-      </div>
+      </TabList>
     </div>
   );
 };

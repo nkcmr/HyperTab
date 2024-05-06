@@ -35,55 +35,65 @@ setInterval(() => {
   tabSwitches = uniq(tabSwitches);
 }, 1000);
 
+async function listTabs(): Promise<chrome.tabs.Tab[]> {
+  const _tabs = await browser.tabs.query({});
+  // filter out file:///... things, safari does not really have
+  // safari://... things like chrome
+  const tabs = _tabs.filter((t) => t.url || t.title);
+
+  const hit = new Map<number, boolean>(
+    tabs.filter((t) => !!t.id).map((t) => [t.id!, false])
+  );
+  const tabsById = new Map<number, chrome.tabs.Tab>(
+    tabs.filter((t) => !!t.id).map((t) => [t.id!, t])
+  );
+  const resultTabs = [];
+  for (let tabId of tabSwitches.slice(1)) {
+    if (hit.get(tabId)) {
+      continue;
+    }
+    hit.set(tabId, true);
+    const tab = tabsById.get(tabId);
+    if (!tab) {
+      continue;
+    }
+    resultTabs.push(tab);
+  }
+  for (let [tabId, didHit] of hit.entries()) {
+    if (didHit) {
+      continue;
+    }
+    const tab = tabsById.get(tabId);
+    if (!tab) {
+      continue;
+    }
+    resultTabs.push(tab);
+  }
+  return resultTabs;
+}
+
 try {
   browser.runtime.onConnect.addListener((port) => {
-    port.onMessage.addListener((message) => {
+    port.onMessage.addListener(async (message) => {
       switch (message.rpc) {
+        case "closeTab":
+          await browser.tabs.remove(message.args.tabID);
+          port.postMessage({
+            result: await listTabs(),
+            id: message.id,
+          });
+          return;
         case "listTabs":
           console.time(`rpc:listTabs:${message.id}`);
-          browser.tabs
-            .query({})
-            .then((tabs) => {
-              // filter out file:///... things, safari does not really have
-              // safari://... things like chrome
-              tabs = tabs.filter((t) => t.url || t.title);
-
-              const hit = new Map<number, boolean>(
-                tabs.filter((t) => !!t.id).map((t) => [t.id!, false])
-              );
-              const tabsById = new Map<number, chrome.tabs.Tab>(
-                tabs.filter((t) => !!t.id).map((t) => [t.id!, t])
-              );
-              const resultTabs = [];
-              for (let tabId of tabSwitches.slice(1)) {
-                if (hit.get(tabId)) {
-                  continue;
-                }
-                hit.set(tabId, true);
-                const tab = tabsById.get(tabId);
-                if (!tab) {
-                  continue;
-                }
-                resultTabs.push(tab);
-              }
-              for (let [tabId, didHit] of hit.entries()) {
-                if (didHit) {
-                  continue;
-                }
-                const tab = tabsById.get(tabId);
-                if (!tab) {
-                  continue;
-                }
-                resultTabs.push(tab);
-              }
-              port.postMessage({
-                result: resultTabs,
-                id: message.id,
-              });
-            })
-            .finally(() => {
-              console.timeEnd(`rpc:listTabs:${message.id}`);
+          try {
+            const resultTabs = await listTabs();
+            port.postMessage({
+              result: resultTabs,
+              id: message.id,
             });
+          } finally {
+            console.timeEnd(`rpc:listTabs:${message.id}`);
+          }
           return;
         default:
           port.postMessage({
