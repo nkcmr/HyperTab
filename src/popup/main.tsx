@@ -249,11 +249,11 @@ const TabItem = styled.div<{ $selected: boolean; $dark: boolean }>`
   gap: ${TAB_ITEM_FLEX_GAP}px;
   align-items: center;
   &:hover {
-    background-color: #efefef;
+    background-color: ${(props) => (props.$dark ? "#4e4e4e" : "#efefef")};
   }
 `;
-const TabItemFavicon = styled.div`
-  background-color: #d9d9d9;
+const TabItemFavicon = styled.div<{ $dark: boolean }>`
+  background-color: ${(props) => (props.$dark ? "#6e6e6e" : "#d9d9d9")};
   border-radius: 5px;
   padding: 0.5em;
   width: ${TAB_ITEM_FAVICON_SIZE}px;
@@ -271,8 +271,8 @@ const TabItemMainTitle = styled.div<{ $dark: boolean }>`
   overflow: hidden;
   text-overflow: ellipsis;
 `;
-const TabItemMainHostname = styled.div`
-  color: #6e6e6e;
+const TabItemMainHostname = styled.div<{ $dark: boolean }>`
+  color: ${(props) => (props.$dark ? "#a9a9a9" : "#6e6e6e")};
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -471,6 +471,7 @@ const Popup: FunctionComponent = () => {
               ref={i === tabSelector ? selectedTabEle : undefined}
             >
               <TabItemFavicon
+                $dark={darkMode}
                 onMouseEnter={() => {
                   setTabHover(t.item.id!);
                 }}
@@ -511,7 +512,7 @@ const Popup: FunctionComponent = () => {
                     match={t.matches?.find((m) => m.key === "title")}
                   />
                 </TabItemMainTitle>
-                <TabItemMainHostname>
+                <TabItemMainHostname $dark={darkMode}>
                   {t.item.url ? hostname(t.item.url) : ""}
                 </TabItemMainHostname>
               </TabItemMain>
