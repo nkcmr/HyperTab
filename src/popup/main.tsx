@@ -261,6 +261,9 @@ const TabItemFavicon = styled.div<{ $dark: boolean }>`
   padding: 7px;
   flex-shrink: 0;
 `;
+const TabItemCloseBox = styled.div`
+  cursor: pointer;
+`;
 const TabItemMain = styled.div`
   width: ${TAB_ITEM_MAIN_WIDTH}px;
 `;
@@ -298,6 +301,73 @@ const SearchInput = styled.input`
   font-size: 1.2em;
 `;
 
+type searchField = {
+  aliases?: string[];
+  filterValues: (value: string | null) => boolean;
+  evaluate: (t: chrome.tabs.Tab, value: string | null) => boolean;
+};
+
+const searchFields: Record<string, searchField> = {
+  sys: {
+    filterValues(value) {
+      return ["true", "false"].includes(value?.toLowerCase() ?? "");
+    },
+    evaluate(t, value) {
+      if (!t.url) {
+        return value === "true";
+      }
+      const ishttp = !!t.url.match(/^https?:\/\//i);
+      return ishttp !== (value === "true");
+    },
+  },
+  pinned: {
+    filterValues(value) {
+      return ["true", "false"].includes(value?.toLowerCase() ?? "");
+    },
+    evaluate(t, value) {
+      return t.pinned === (value === "true");
+    },
+  },
+  hostname: {
+    aliases: ["domain"],
+    filterValues(value) {
+      return true;
+    },
+    evaluate(t, value) {
+      if (!t.url) {
+        return false;
+      }
+      return hostname(t.url).includes(value ?? "");
+    },
+  },
+} as const;
+
+function getSearchField(key: string): searchField | null {
+  return key in searchFields
+    ? searchFields[key]
+    : Object.values(searchFields).find((sf) => {
+        return sf.aliases?.includes(key) ?? false;
+      }) ?? null;
+}
+
+function structuredQuery(query: string): Map<string, string | null> {
+  return new Map<string, string | null>(
+    query
+      .split(/\s+/g)
+      .map((pair): [string, string | null] => {
+        const [key, value] = pair.split(":", 2);
+        return [key, value ?? null];
+      })
+      .filter(([key, value]) => {
+        const sf = getSearchField(key);
+        if (!sf) {
+          return false;
+        }
+        return sf.filterValues(value);
+      })
+  );
+}
+
 const Popup: FunctionComponent = () => {
   const darkMode = useDarkMode();
   const [tabSelector, setTabSelector] = useState(0);
@@ -327,7 +397,15 @@ const Popup: FunctionComponent = () => {
   }, [setTabSelector, searchQuery]);
   const searchIndex = useMemo(() => {
     const result = new Fuse(tabs, {
-      keys: ["title", "url"],
+      keys: [
+        "title",
+        {
+          name: "hostname",
+          getFn(obj) {
+            return obj.url ? hostname(obj.url) : "";
+          },
+        },
+      ],
       includeMatches: true,
     });
     return result;
@@ -340,6 +418,24 @@ const Popup: FunctionComponent = () => {
           refIndex: i,
         })
       );
+    }
+    const sq = structuredQuery(searchQuery);
+    if (sq.size > 0) {
+      return tabs
+        .filter((tab) => {
+          for (let [key, value] of sq.entries()) {
+            if (!getSearchField(key)!.evaluate(tab, value)) {
+              return false;
+            }
+          }
+          return true;
+        })
+        .map(
+          (t, i): FuseResult<chrome.tabs.Tab> => ({
+            item: t,
+            refIndex: i,
+          })
+        );
     }
     return searchIndex.search(searchQuery);
   }, [tabs, searchIndex, searchQuery]);
@@ -409,7 +505,14 @@ const Popup: FunctionComponent = () => {
   }, [selectedTabEle.current]);
 
   const [tabHover, setTabHover] = useState<number | null>(null);
-
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  useEffect(() => {
+    requestIdleCallback(() => {
+      // this is more reliable than autoFocus attribute. sometimes autoFocus
+      // would let the popup open and then input would not be focused.
+      inputRef.current?.focus();
+    });
+  }, [inputRef.current]);
   return (
     <div>
       <SearchContainer>
@@ -428,8 +531,8 @@ const Popup: FunctionComponent = () => {
         </SearchIconLeftContainer>
         <SearchInputRightContainer>
           <SearchInput
+            ref={inputRef}
             type="text"
-            autoFocus
             placeholder={t("ui_search_tabs")}
             value={searchQuery}
             onKeyDown={(e) => {
@@ -480,7 +583,7 @@ const Popup: FunctionComponent = () => {
                 }}
               >
                 {showCloseAction ? (
-                  <div
+                  <TabItemCloseBox
                     title="Close Tab"
                     onClick={(e) => {
                       e.stopPropagation();
@@ -500,7 +603,7 @@ const Popup: FunctionComponent = () => {
                     >
                       <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.151 17.943l-4.143-4.102-4.117 4.159-1.833-1.833 4.104-4.157-4.162-4.119 1.833-1.833 4.155 4.102 4.106-4.16 1.849 1.849-4.1 4.141 4.157 4.104-1.849 1.849z" />
                     </svg>
-                  </div>
+                  </TabItemCloseBox>
                 ) : (
                   <img width={16} height={16} src={favicURL} />
                 )}
