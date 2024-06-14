@@ -147,41 +147,11 @@ const HighlightMatches: FunctionComponent<{
   );
 };
 
-// // <big_sigh> ...
-// function faviconsWork(tabURL: string, size: number): Promise<boolean> {
-//   return new Promise((resolve) => {
-//     const hiddenDiv = document.createElement("div", {});
-//     hiddenDiv.setAttribute("style", "display:none;");
-//     const testImg = document.createElement("img");
-//     testImg.src = faviconURL({ url: tabURL } as chrome.tabs.Tab, 32)!;
-//     testImg.onerror = () => {
-//       document.body.removeChild(hiddenDiv);
-//       resolve(false);
-//     };
-//     testImg.onload = () => {
-//       document.body.removeChild(hiddenDiv);
-//       resolve(true);
-//     };
-//     hiddenDiv.appendChild(testImg);
-//     document.body.appendChild(hiddenDiv);
-//   });
-// }
-
 function faviconURL(t: chrome.tabs.Tab): string | undefined {
   return (
     t.favIconUrl ??
     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
   );
-  // if (t.favIconUrl) {
-  //   return t.favIconUrl;
-  // }
-  // if (!t.url) {
-  //   return;
-  // }
-  // const url = new URL(browser.runtime.getURL("/_favicon/"));
-  // url.searchParams.set("pageUrl", t.url);
-  // url.searchParams.set("size", `${size}`);
-  // return url.toString();
 }
 
 const prefersDarkMode = (): boolean => {
@@ -373,18 +343,6 @@ const Popup: FunctionComponent = () => {
   const [tabSelector, setTabSelector] = useState(0);
   const [tabs, setTabs] = useState<chrome.tabs.Tab[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-
-  // const FAVICON_NOT_SUPPORTED = 0;
-  // const FAVICON_SUPPORTED_VIA_EXT_URL = 1;
-  // const FAVICON_SUPPORTED_VIA_TAB_DATA = 2;
-  // const [enableFavicons, setEnabledFavicons] = useState(FAVICON_NOT_SUPPORTED);
-  // useEffect(() => {
-  //   faviconsWork("https://www.google.com", 32).then((ok) => {
-  //     if (enableFavicons === 0) {
-  //       setEnabledFavicons(FAVICON_SUPPORTED_VIA_EXT_URL);
-  //     }
-  //   });
-  // }, []);
 
   useEffect(() => {
     if (tabs.length === 0) {
