@@ -167,7 +167,7 @@ const HighlightMatches: FunctionComponent<{
 //   });
 // }
 
-function faviconURL(t: chrome.tabs.Tab, size: number): string | undefined {
+function faviconURL(t: chrome.tabs.Tab): string | undefined {
   return (
     t.favIconUrl ??
     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
@@ -561,7 +561,7 @@ const Popup: FunctionComponent = () => {
           <TabListEmpty>No Results Found</TabListEmpty>
         ) : null}
         {searchResults.map((t, i) => {
-          const favicURL = faviconURL(t.item, 32);
+          const favicURL = faviconURL(t.item);
           const showCloseAction = tabHover === t.item.id! && !t.item.pinned;
           return (
             <TabItem
