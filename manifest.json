@@ -36,5 +36,5 @@
     }
   },
 
-  "permissions": ["tabs", "*://*/*"]
+  "permissions": ["tabs", "tabGroups", "*://*/*"]
 }

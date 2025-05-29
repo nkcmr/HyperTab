@@ -1,3 +1,5 @@
+import type { Tab } from "../types";
+
 declare const browser: typeof chrome;
 
 // tabSwitches is a stack of all tab activations. every time a tab becomes
@@ -35,19 +37,39 @@ setInterval(() => {
   tabSwitches = uniq(tabSwitches);
 }, 1000);
 
-async function listTabs(): Promise<chrome.tabs.Tab[]> {
-  const _tabs = await browser.tabs.query({});
-  // filter out file:///... things, safari does not really have
-  // safari://... things like chrome
-  const tabs = _tabs.filter((t) => t.url || t.title);
+async function listTabs(): Promise<Tab[]> {
+  const [tabs, groups] = await Promise.all([
+    browser.tabs.query({}).then(
+      // filter out file:///... things, safari does not really have
+      // safari://... things like chrome
+      (allTabs) => allTabs.filter((t) => t.url || t.title)
+    ),
+    browser.tabGroups
+      .query({})
+      .then((groups): Map<number, chrome.tabGroups.TabGroup> => {
+        return new Map(groups.map((g) => [g.id, g]));
+      }),
+  ]);
 
   const hit = new Map<number, boolean>(
     tabs.filter((t) => !!t.id).map((t) => [t.id!, false])
   );
-  const tabsById = new Map<number, chrome.tabs.Tab>(
-    tabs.filter((t) => !!t.id).map((t) => [t.id!, t])
+  const tabsById = new Map<number, Tab>(
+    tabs
+      .filter((t) => !!t.id)
+      .map((t) => {
+        const group = t.groupId > 0 ? groups.get(t.groupId) : undefined;
+        return [
+          t.id!,
+          {
+            ...t,
+            group,
+          },
+        ];
+      })
   );
-  const resultTabs = [];
+
+  const resultTabs: Tab[] = [];
   for (let tabId of tabSwitches.slice(1)) {
     if (hit.get(tabId)) {
       continue;

@@ -10,6 +10,7 @@ import React, {
 import ReactDOM from "react-dom/client";
 import { useHotkeys } from "react-hotkeys-hook";
 import { styled } from "styled-components";
+import type { Tab } from "../types";
 import "./scrollIntoViewIfNeededPolyfill";
 
 function t(
@@ -31,8 +32,8 @@ function hostname(url: string): string {
 const browser = chrome;
 
 interface BackgroundPage {
-  listTabs(): Promise<chrome.tabs.Tab[]>;
-  closeTab(tabID: number): Promise<chrome.tabs.Tab[]>;
+  listTabs(): Promise<Tab[]>;
+  closeTab(tabID: number): Promise<Tab[]>;
 }
 
 function useBackgroundPage(): BackgroundPage {
@@ -76,7 +77,7 @@ function useBackgroundPage(): BackgroundPage {
         waiter.current.set(id, {
           reject,
           resolve(value) {
-            resolve(value as chrome.tabs.Tab[]);
+            resolve(value as Tab[]);
           },
         });
         port.current.postMessage({ rpc: "listTabs", id });
@@ -88,7 +89,7 @@ function useBackgroundPage(): BackgroundPage {
         waiter.current.set(id, {
           reject,
           resolve(value) {
-            resolve(value as chrome.tabs.Tab[]);
+            resolve(value as Tab[]);
           },
         });
         port.current.postMessage({ rpc: "closeTab", id, args: { tabID } });
@@ -147,7 +148,7 @@ const HighlightMatches: FunctionComponent<{
   );
 };
 
-function faviconURL(t: chrome.tabs.Tab): string | undefined {
+function faviconURL(t: Tab): string | undefined {
   return (
     t.favIconUrl ??
     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
@@ -245,10 +246,69 @@ const TabItemMainTitle = styled.div<{ $dark: boolean }>`
   text-overflow: ellipsis;
 `;
 const TabItemMainHostname = styled.div<{ $dark: boolean }>`
+  margin-top: 3px;
   color: ${(props) => (props.$dark ? "#a9a9a9" : "#6e6e6e")};
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+`;
+
+type ColorSet<C extends string> = `${C}` | `${C}-invert` | `${C}-pale`;
+
+const tabGroupColors: {
+  [K in ColorSet<chrome.tabGroups.ColorEnum>]: string;
+} = {
+  blue: "oklch(48% 0.2 260)",
+  "blue-invert": "oklch(83% 0.17 260)",
+  "blue-pale": "oklch(97% 0.05 260)",
+
+  purple: "oklch(48% 0.2 315)",
+  "purple-invert": "oklch(83% 0.14 315)",
+  "purple-pale": "oklch(97% 0.05 315)",
+
+  cyan: "oklch(48% 0.2 205)",
+  "cyan-invert": "oklch(83% 0.11 205)",
+  "cyan-pale": "oklch(97% 0.05 205)",
+
+  orange: "oklch(48% 0.2 50)",
+  "orange-invert": "oklch(86% 0.14 50)",
+  "orange-pale": "oklch(97% 0.05 50)",
+
+  yellow: "oklch(51% 0.23 90)",
+  "yellow-invert": "oklch(86% 0.14 90)",
+  "yellow-pale": "oklch(97% 0.05 90)",
+
+  pink: "oklch(48% 0.2 360)",
+  "pink-invert": "oklch(83% 0.14 360)",
+  "pink-pale": "oklch(97% 0.05 360)",
+
+  green: "oklch(48% 0.2 145)",
+  "green-invert": "oklch(83% 0.14 145)",
+  "green-pale": "oklch(97% 0.05 145)",
+
+  red: "oklch(48% 0.2 15)",
+  "red-invert": "oklch(83% 0.14 15)",
+  "red-pale": "oklch(97% 0.05 15)",
+
+  grey: "#5e6a77",
+  "grey-invert": "#99a6b4",
+  "grey-pale": "#f2f9ff",
+};
+
+const TabItemGroupPill = styled.span<{
+  $dark: boolean;
+  $color: chrome.tabGroups.ColorEnum;
+}>`
+  background-color: ${(props) =>
+    props.$dark
+      ? tabGroupColors[`${props.$color}-invert`]
+      : tabGroupColors[props.$color]};
+  color: ${(props) =>
+    props.$dark ? `#15141a` : tabGroupColors[`${props.$color}-pale`]};
+  font-weight: 500;
+  padding: 3px 5px;
+  border-radius: 4px;
+  display: inline-block;
 `;
 
 const SearchContainer = styled.div`
@@ -274,7 +334,7 @@ const SearchInput = styled.input`
 type searchField = {
   aliases?: string[];
   filterValues: (value: string | null) => boolean;
-  evaluate: (t: chrome.tabs.Tab, value: string | null) => boolean;
+  evaluate: (t: Tab, value: string | null) => boolean;
 };
 
 const searchFields: Record<string, searchField> = {
@@ -341,7 +401,7 @@ function structuredQuery(query: string): Map<string, string | null> {
 const Popup: FunctionComponent = () => {
   const darkMode = useDarkMode();
   const [tabSelector, setTabSelector] = useState(0);
-  const [tabs, setTabs] = useState<chrome.tabs.Tab[]>([]);
+  const [tabs, setTabs] = useState<Tab[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
@@ -363,6 +423,12 @@ const Popup: FunctionComponent = () => {
             return obj.url ? hostname(obj.url) : "";
           },
         },
+        {
+          name: "group",
+          getFn(obj) {
+            return obj.group?.title ?? "";
+          },
+        },
       ],
       includeMatches: true,
     });
@@ -371,7 +437,7 @@ const Popup: FunctionComponent = () => {
   const searchResults = useMemo(() => {
     if (!searchQuery) {
       return tabs.map(
-        (t, i): FuseResult<chrome.tabs.Tab> => ({
+        (t, i): FuseResult<Tab> => ({
           item: t,
           refIndex: i,
         })
@@ -389,7 +455,7 @@ const Popup: FunctionComponent = () => {
           return true;
         })
         .map(
-          (t, i): FuseResult<chrome.tabs.Tab> => ({
+          (t, i): FuseResult<Tab> => ({
             item: t,
             refIndex: i,
           })
@@ -575,6 +641,17 @@ const Popup: FunctionComponent = () => {
                 </TabItemMainTitle>
                 <TabItemMainHostname $dark={darkMode}>
                   {t.item.url ? hostname(t.item.url) : ""}
+                  {t.item.group ? (
+                    <>
+                      &nbsp;|&nbsp;
+                      <TabItemGroupPill
+                        $dark={darkMode}
+                        $color={t.item.group.color}
+                      >
+                        {t.item.group.title}
+                      </TabItemGroupPill>
+                    </>
+                  ) : null}
                 </TabItemMainHostname>
               </TabItemMain>
             </TabItem>

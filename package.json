@@ -20,16 +20,16 @@
   "dependencies": {
     "@types/chrome": "^0.0.251",
     "@types/lodash.uniq": "^4.5.9",
-    "@types/react": "^18.2.37",
-    "@types/react-dom": "^18.2.15",
-    "esbuild": "^0.19.5",
-    "fuse.js": "^7.0.0",
+    "@types/react": "^18.3.23",
+    "@types/react-dom": "^18.3.7",
+    "esbuild": "^0.19.12",
+    "fuse.js": "^7.1.0",
     "lodash.uniq": "^4.5.0",
     "npm-run-all": "^4.1.5",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-hotkeys-hook": "^4.4.1",
-    "styled-components": "^6.1.9",
-    "typescript": "^5.2.2"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-hotkeys-hook": "^4.6.2",
+    "styled-components": "^6.1.18",
+    "typescript": "^5.8.3"
   }
 }
